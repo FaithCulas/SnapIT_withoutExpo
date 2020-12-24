@@ -1,12 +1,27 @@
 import React from 'react';
 import { View , StyleSheet,Text, Alert,Image} from 'react-native';
 import MyIcon from './MyIcon'
+import {useState, useEffect} from "react";
 
 import AppText from './AppText';
 import Nfc from './Nfc'
 
 
 function Profile({name,address,phone,image}) {
+
+    const [currentDate, setCurrentDate] = useState('');
+    const [currentTime, setCurrentTime] = useState('');
+
+    useEffect(() => {
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+        var hours = new Date().getHours(); //Current Hours
+        var min = new Date().getMinutes(); //Current Minutes
+        var sec = new Date().getSeconds(); //Current Seconds
+        setCurrentDate(year + '/' + month + '/' + date);
+        setCurrentTime(hours + ':' + min + ':' + sec);
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -32,7 +47,7 @@ function Profile({name,address,phone,image}) {
             </View>
             
             <View style={styles.scanbutton}>
-                <Nfc id={[15,16]}/>
+                <Nfc id={[name,currentDate,currentTime]}/>
             </View>
             
             
