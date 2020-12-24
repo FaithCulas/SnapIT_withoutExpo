@@ -7,6 +7,7 @@ import Nfc from './Nfc'
 
 
 function Profile({name,address,phone,image}) {
+
     return (
         <View style={styles.container}>
             {/* <View style={styles.graphbutton}>
@@ -31,7 +32,7 @@ function Profile({name,address,phone,image}) {
             </View>
             
             <View style={styles.scanbutton}>
-                <Nfc id={14}/>
+                <Nfc id={[15,16]}/>
             </View>
             
             

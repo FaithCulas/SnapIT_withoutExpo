@@ -14,9 +14,9 @@ function AppNavigator(){
     return (
       <Screen>
         <Tab.Navigator>
-        <Tab.Screen name="profile" component={ProfileScreen}/>
-        <Tab.Screen name="graph" component={GraphScreen}/>
-        <Tab.Screen name="account" component={AccountNavigator}/>   
+        <Tab.Screen name="profile" component={ProfileScreen}options={{tabBarIcon:({size,color})=> <MyIcon name="person-sharp"size={size} iconColor={color} backColor="#f4f4f2"/> }}/>
+        <Tab.Screen name="graph" component={GraphScreen}options={{tabBarIcon:({size,color})=> <MyIcon name="bar-chart"size={size} iconColor={color} backColor="#f4f4f2"/> }}/>
+        <Tab.Screen name="account" component={AccountNavigator}options={{tabBarIcon:({size,color})=> <MyIcon name="settings-sharp"size={size} iconColor={color} backColor="#f4f4f2"/> }}/>   
         </Tab.Navigator>
     </Screen>
     

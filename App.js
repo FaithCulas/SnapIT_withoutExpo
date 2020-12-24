@@ -25,13 +25,14 @@ import GraphScreen from './app/Screens/GraphScreen';
 import AccountScreen from './app/Screens/AccountScreen';
 import Screen from './app/components/Screen';
 
-import AppNavigator from './app/navigation/AppNavigator'
+import AppNavigator from './app/navigation/AppNavigator';
+import navigationTheme from './app/navigation/navigationTheme'
 
 const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
+      <NavigationContainer theme={navigationTheme}>
           <AppNavigator/>
       </NavigationContainer>
     </>
