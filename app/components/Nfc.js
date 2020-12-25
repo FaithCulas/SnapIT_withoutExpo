@@ -16,6 +16,7 @@ import NfcManager, {
   NfcTech,
   NfcAdapter,
   NdefParser,
+  Ndef,
 } from 'react-native-nfc-manager';
 
 import ListItem from './ListItem';
@@ -108,22 +109,22 @@ class Nfc extends React.Component {
 
     // Decrypt the NFC data
     // lahiru change here what you want
-    this.content = this.state.parsed[0];
-    console.log('Content from read:', content, "id passed:", this.props.id)
-    const values = {date: this.props.id[1], time: this.props.id[2], temp:this.content, userid: 1, isid: '5f8bdbea7119bc007641a5c4'}
+    this.content = this.state.parsed[0].split(",");
+    console.log('Content from read:', this.content, "id passed:", this.props.id)
+    const values = {date: this.props.id[1], time: this.props.id[2], temp:this.content[0], userid: 1, isid: this.content[1]}
     this.getDataUsingPost(values);
     Alert.alert("scanned");
 
     // end here
 
-    var endOfIV = content.indexOf(' ~ ')
-    var iv = content.substring(0,endOfIV).trim()
-    var cipher = content.substring(endOfIV+3)
+    // var endOfIV = content.indexOf(' ~ ')
+    // var iv = content.substring(0,endOfIV).trim()
+    // var cipher = content.substring(endOfIV+3)
 
-    this.generateKey('dcnfjlkbd298SKDH', 'DCJKN278hdsb', 5000, 256).then(key => {
-      this.asyncDecrypt(cipher, key, iv)
+    // this.generateKey('dcnfjlkbd298SKDH', 'DCJKN278hdsb', 5000, 256).then(key => {
+    //   this.asyncDecrypt(cipher, key, iv)
 
-    })
+    // })
   }
 
   test = () => {
