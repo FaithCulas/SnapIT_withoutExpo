@@ -26,7 +26,8 @@ import AccountScreen from './app/Screens/AccountScreen';
 import Screen from './app/components/Screen';
 
 import AppNavigator from './app/navigation/AppNavigator';
-import navigationTheme from './app/navigation/navigationTheme'
+import navigationTheme from './app/navigation/navigationTheme';
+import AuthNavigator from './app/navigation/AuthNavigator'
 
 const App: () => React$Node = () => {
   return (

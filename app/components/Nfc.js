@@ -16,12 +16,13 @@ import NfcManager, {
   NfcTech,
   NfcAdapter,
   NdefParser,
+  Ndef,
 } from 'react-native-nfc-manager';
 
-import ListItem from '../components/ListItem';
+import ListItem from './ListItem';
+import MyIcon from './MyIcon'
 
 class Nfc extends React.Component {
-
   getDataUsingPost = (inf) => {
     //console.log(inf);
     //POST json
@@ -107,17 +108,23 @@ class Nfc extends React.Component {
     NfcManager.unregisterTagEvent().catch(() => 0);
 
     // Decrypt the NFC data
-    this.content = this.state.parsed[0];
-    console.log('Content from read:', content, "id passed:", this.props.id)
+    // lahiru change here what you want
+    this.content = this.state.parsed[0].split(",");
+    console.log('Content from read:', this.content, "id passed:", this.props.id)
+    const values = {date: this.props.id[1], time: this.props.id[2], temp:this.content[0], userid: 1, isid: this.content[1]}
+    this.getDataUsingPost(values);
+    Alert.alert("scanned");
 
-    var endOfIV = content.indexOf(' ~ ')
-    var iv = content.substring(0,endOfIV).trim()
-    var cipher = content.substring(endOfIV+3)
+    // end here
 
-    this.generateKey('dcnfjlkbd298SKDH', 'DCJKN278hdsb', 5000, 256).then(key => {
-      this.asyncDecrypt(cipher, key, iv)
+    // var endOfIV = content.indexOf(' ~ ')
+    // var iv = content.substring(0,endOfIV).trim()
+    // var cipher = content.substring(endOfIV+3)
 
-    })
+    // this.generateKey('dcnfjlkbd298SKDH', 'DCJKN278hdsb', 5000, 256).then(key => {
+    //   this.asyncDecrypt(cipher, key, iv)
+
+    // })
   }
 
   test = () => {
@@ -133,7 +140,7 @@ render(){
   return (
     <SafeAreaView style={{padding: 20}}>
       <Text>NFC SCANNER</Text>
-      <Button title="Scanner" onPress={this.test}></Button>
+      <ListItem onPress={this.readData} icon={<MyIcon name= "scan" size={80} backColor="#f4f4f2" iconColor="black"/>}/>
 
     </SafeAreaView>
   );

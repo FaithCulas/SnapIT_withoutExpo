@@ -4,7 +4,7 @@ import { Image, ImageBackground,StyleSheet, View, Text,Button,Platform, Alert} f
 
 import LoginButton from '../components/LoginButton';
 import RegisterButton from '../components/RegisterButton'
-function WelcomeScreen() {
+function WelcomeScreen({navigation}) {
     return (
        <ImageBackground
        style={styles.background}
@@ -12,8 +12,8 @@ function WelcomeScreen() {
            <View style={styles.logoContainer}>
            <Text style={styles.tagline}>SnapIT</Text>
            </View>
-           <LoginButton title="Login" onPress={()=>Alert.alert("login")}></LoginButton>
-           <RegisterButton title="Register" onPress={()=>Alert.alert("register")}></RegisterButton>
+           <LoginButton title="Login" onPress={()=>navigation.navigate("login")}></LoginButton>
+           <RegisterButton title="Register" onPress={()=>navigation.navigate("register")}></RegisterButton>
        </ImageBackground>
     )
 }

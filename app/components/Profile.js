@@ -1,14 +1,12 @@
-import React from 'react';
+import React ,{useState,useEffect}from 'react';
 import { View , StyleSheet,Text, Alert,Image} from 'react-native';
 import MyIcon from './MyIcon'
-import {useState, useEffect} from "react";
 
 import AppText from './AppText';
 import Nfc from './Nfc'
 
 
-function Profile({name,address,phone,image}) {
-
+function Profile({name,address,phone,image,indicator}) {
     const [currentDate, setCurrentDate] = useState('');
     const [currentTime, setCurrentTime] = useState('');
 
