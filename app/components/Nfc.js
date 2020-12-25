@@ -48,9 +48,15 @@ class Nfc extends React.Component {
     })
     .then((response) => response.json())
     //If response is in json then in success
-    .then((responseJson) => {
-      alert(JSON.stringify(responseJson));
-      console.log(responseJson);
+    .then((responseJson) => { 
+      if (JSON.stringify(responseJson)==JSON.stringify({"message": "received"})){
+        alert("scanned successfully");
+        console.log(responseJson);
+      }
+      else{
+        alert("scan unsuccessful");
+        console.log(responseJson);
+      }
     })
     //If response is not in json then in error
     .catch((error) => {
@@ -130,7 +136,6 @@ class Nfc extends React.Component {
     console.log(this.props.id);
     const values = {date: this.props.id[1], time: this.props.id[2], temp: 20, userid: 1, isid: '5f8bdbea7119bc007641a5c4'}
     this.getDataUsingPost(values);
-    Alert.alert("scanned");
 
 
   }
@@ -139,7 +144,7 @@ render(){
   return (
     <SafeAreaView style={{padding: 20}}>
       <Text>NFC SCANNER</Text>
-      <ListItem onPress={this.readData} icon={<MyIcon name= "scan" size={80} backColor="#f4f4f2" iconColor="black"/>}/>
+      <ListItem onPress={this.test} icon={<MyIcon name= "scan" size={80} backColor="#f4f4f2" iconColor="black"/>}/>
 
     </SafeAreaView>
   );
