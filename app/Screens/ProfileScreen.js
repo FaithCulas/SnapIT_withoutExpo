@@ -1,25 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View , StyleSheet,Image} from 'react-native';
+import {create} from "apisauce";
 
 import Profile from "../components/Profile"
 
 function ProfileScreen(props) {
+    const endpoint = "/1";
+    const [result, setResult] = useState([]);
+    useEffect(() => {
+        loadUser();
+    }, []);
           
-    // const getDataUsingGET = () => {
-    //     return fetch('https://snapit-api.herokuapp.com/api/setlog')
-    //         .then((response) => response.json())
-    //         .then((json) => {
-    //         return json.movies;
-    //         })
-    //         .catch((error) => {
-    //         console.error(error);
-    //         });
-    //     };
+    const apiClient = create({
+        baseURL: 'https://snapit-api.herokuapp.com/api/getuser'
+    });
+    const getListing = () => apiClient.get(endpoint);
 
+    const loadUser = async() => {
+        const response = await getListing();
+        setResult(response.data);
+        console.log();
+    }
 
     return (
         <View>
-            <Profile name="Emma Watson" address="RodrigoPlace" phone="0775868915" indicator="positive"></Profile>  
+            <Profile name={result[0].name} address="as" phone="0775868915" indicator="positive"></Profile>  
         </View>
         
     );
