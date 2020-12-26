@@ -3,7 +3,7 @@ import {Text,StyleSheet,View, TouchableOpacit,Image,TouchableOpacity} from 'reac
 
 import AppText from '../components/AppText'
 
-function ListItem({title,image,onPress,icon}) {
+function ListItem({title,image,onPress,icon,subtitle}) {
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={styles.content}>
@@ -11,6 +11,7 @@ function ListItem({title,image,onPress,icon}) {
             {image &&<Image style={styles.pic} source={image}></Image>}
                 <View style={styles.content2}>
                     <AppText style={styles.text1}>{title}</AppText>
+                    <AppText style={styles.text1}>{subtitle}</AppText>
                 </View>
         </View>
         </TouchableOpacity>
@@ -26,14 +27,18 @@ const styles = StyleSheet.create({
     },
     content2:{
         marginLeft:10,
-        justifyContent:"center"
+        justifyContent:"center",
+        alignItems:"center",
+        alignSelf:"center",
     },
     text1:{
         justifyContent:"center",
         fontSize:20,
         alignItems:"center",
         color:"grey",
-        marginLeft:10
+        marginLeft:10,
+        alignContent:"center",
+        alignSelf:"center"
     },
     pic:{
         width: 100,

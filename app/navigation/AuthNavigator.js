@@ -11,8 +11,8 @@ function AuthNavigator(props){
     return(
     <Stack.Navigator>
         <Stack.Screen name="welcome" component={WelcomeScreen} options={{headerShown:false}} initialParams={{set:props.setAccess}} />
-        {/* <Stack.Screen name="login" component={LoginScreen}/>
-        <Stack.Screen name="register" component={RegisterScreen}/> */}
+        {/* <Stack.Screen name="login" component={LoginScreen}/> */}
+        <Stack.Screen name="register" component={RegisterScreen}/>
     </Stack.Navigator>
 )
     

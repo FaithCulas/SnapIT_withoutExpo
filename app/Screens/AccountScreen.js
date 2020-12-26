@@ -9,7 +9,7 @@ function AccountScreen({navigation}) {
     return (
         <>
         <View style={styles.container}>
-            <ListItem title="Faith Culas"
+            <ListItem title="Faith Culas" subtitle={"23424"}
             image={require("../assets/profile.png")}
             onPress={()=>navigation.navigate("profile")}/>
 

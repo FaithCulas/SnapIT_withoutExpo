@@ -24,6 +24,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Auth0 from 'react-native-auth0';
+import base64 from 'react-native-base64'
 
 import ProfileScreen from './app/Screens/ProfileScreen';
 import GraphScreen from './app/Screens/GraphScreen';
@@ -35,6 +36,7 @@ import AuthNavigator from './app/navigation/AuthNavigator';
 import LoginScreen from './app/Screens/LoginScreen';
 import WelcomeScreen from './app/Screens/WelcomeScreen';
 import LoginButton from './app/components/LoginButton'
+import RegisterScreen from './app/Screens/RegisterScreen';
 
 
 const App: () => React$Node = () => {
@@ -46,7 +48,7 @@ const auth0 = new Auth0(
 
 const Stack=createStackNavigator();
 
-function Login(){
+function Login({navigation}){
   auth0
         .webAuth
         .authorize({scope: 'openid profile email'})
@@ -55,6 +57,8 @@ function Login(){
                 'Logged in!'
             );
             setAccess(true);
+            console.log("logged in");
+
         })
         .catch(error => console.log(error));
         //console.log("hello")

@@ -8,8 +8,8 @@ const Stack =createStackNavigator();
 function AccountNavigator(){
     return(
     <Stack.Navigator>
-        <Stack.Screen name="account" component={AccountScreen}/>
-        <Stack.Screen name="info" component={InfoScreen}/>
+        <Stack.Screen name="Account" component={AccountScreen}/>
+        <Stack.Screen name="info" component={InfoScreen} options={{tabBarVisible:false}}/>
     </Stack.Navigator>
     )
 }
