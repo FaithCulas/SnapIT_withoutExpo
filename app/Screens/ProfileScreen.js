@@ -30,10 +30,14 @@ function ProfileScreen(props) {
         setResult(response.data);
         console.log(result);
     };
-    //<Profile name={result[0].name} address={result[0].address} phone={result[0].mobile} indicator={result[0].test}></Profile>  
+    
+    if (result==[]){
+        result = API;
+    }
+    
     return (
         <View>
-            <Profile name="nam" address="add" phone="pj" indicator="in"></Profile>  
+            <Profile name={result[0].name} address={result[0].address} phone={result[0].mobile} indicator={result[0].test}></Profile>  
         </View>
         
     );

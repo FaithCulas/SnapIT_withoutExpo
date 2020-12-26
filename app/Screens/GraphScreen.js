@@ -61,47 +61,41 @@ function GraphScreen(props) {
         }
     ];
 
-    // const endpointC = "getusercough/1";
-    // const endpointT = "getusertemp/1";
-    // const [coughResult, setCoughResult] = useState([]);
-    // const [tempResult, setTempResult] = useState([]);
-    // useEffect(() => {
-    //     loadCough();
-    // }, []);
-    // useEffect(() => {
-    //     loadTemp();
-    // }, []);
+    const endpointC = "/1";
+    const endpointT = "/1";
+    const [coughResult, setCoughResult] = useState([]);
+    const [tempResult, setTempResult] = useState([]);
+    useEffect(() => {
+        loadCough();
+    }, []);
+    useEffect(() => {
+        loadTemp();
+    }, []);
             
-    // const apiClient = create({
-    //     baseURL: 'https://snapit-api.herokuapp.com/api/'
-    // });
-    // const getCoughList = () => apiClient.get(endpointC);
-    // const getTempList = () => apiClient.get(endpointT);
+    const apiClient1 = create({
+        baseURL: 'https://snapit-api.herokuapp.com/api/getusercough'
+    });
+    const apiClient2 = create({
+        baseURL: 'https://snapit-api.herokuapp.com/api/getusertemp'
+    });
+    const getCoughList = () => apiClient1.get(endpointC);
+    const getTempList = () => apiClient2.get(endpointT);
 
-    // const loadCough = async() => {
-    //     const response = await getCoughList();
-    //     setCoughResult(response.data);
-    //     console.log(coughResult.length);
-    // };
-    // const loadTemp = async() => {
-    //     const response = await getTempList();
-    //     setTempResult(response.data);
-    // };
+    const loadCough = async() => {
+        const response = await getCoughList();
+        setCoughResult(response.data);
+        console.log(coughResult.length);
+    };
+    const loadTemp = async() => {
+        const response = await getTempList();
+        setTempResult(response.data);
+    };
 
-    const coughResult = cough;
-    const tempResult = temp;
-    // const data = {
-        
-    //     labels: ["May", "June","s", "s" , "May", "June"],
-    //     datasets: [
-    //         {
-    //         data: [10, 20, 30, 40, 50, 60],
-    //         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-    //         strokeWidth: 2 // optional
-    //         }
-    //     ],
-    //     legend: ["Cough Data"] // optional
-    // };
+    if (coughResult==[] | tempResult==[]){
+        coughResult = cough;
+        tempResult = temp;
+    };
+
     var i;
     var coughDate = [];
     var coughTimes = [];
@@ -116,8 +110,6 @@ function GraphScreen(props) {
         tempDate[i] = tempResult[i].date;
         tempTimes[i] = tempResult[i].temp;
         };
-    console.log (tempDate);
-    console.log(tempTimes);
     const dataC = {
        
         labels: coughDate,
