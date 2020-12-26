@@ -57,20 +57,20 @@ class Nfc extends React.Component {
     //If response is in json then in success
     .then((responseJson) => { 
       if (JSON.stringify(responseJson)==JSON.stringify({"message": "received"})){
-        this.notshow();
+        //this.notshow();
         alert("scanned successfully");
         console.log(responseJson);
       }
       else{
-        this.notshow();
+        //this.notshow();
         alert("scan unsuccessful");
         console.log(responseJson);
       }
     })
     //If response is not in json then in error
     .catch((error) => {
-      alert(JSON.stringify(error));
-      console.error(error);
+      alert("ERROR: service unavailable");
+      console.log("ERROR: service unavailable");
     });
   };
 
@@ -125,6 +125,7 @@ class Nfc extends React.Component {
 
     // Decrypt the NFC data
     // lahiru change here what you want
+    this.notshow();
     this.content = this.state.parsed[0].split(",");
     console.log('Content from read:', this.content, "id passed:", this.props.id)
     const values = {date: this.props.id[1], time: this.props.id[2], temp:this.content[0], userid: 1, isid: this.content[1]}
