@@ -1,8 +1,10 @@
-import { FlatList, View ,Image,StyleSheet, Text} from "react-native";
+import { FlatList, View ,Image,StyleSheet, Text,Button} from "react-native";
 import React, { useState, useEffect } from 'react';
 import {LineChart,BarChart,PieChart,ProgressChart,ContributionGraph,StackedBarChart} from "react-native-chart-kit";
 import { Dimensions } from "react-native";
-import create from "apisauce";
+import {create} from "apisauce";
+
+import AppText from '../components/AppText'
 
 
 
@@ -34,11 +36,7 @@ function GraphScreen(props) {
         },
         {
             "date": "2020-12-25",
-            "temp": 31.55
-        },
-        {
-            "date": "2020-12-26",
-            "temp": 33.79
+            "temp": 20
         }
     ];
 
@@ -61,35 +59,46 @@ function GraphScreen(props) {
         }
     ];
 
-    // const endpointC = "getusercough/1";
-    // const endpointT = "getusertemp/1";
-    // const [coughResult, setCoughResult] = useState([]);
-    // const [tempResult, setTempResult] = useState([]);
-    // useEffect(() => {
-    //     loadCough();
-    // }, []);
-    // useEffect(() => {
-    //     loadTemp();
-    // }, []);
+    const endpointC = "getusercough/1";
+    const endpointT = "getusertemp/1";
+    const [coughResult, setCoughResult] = useState(cough);
+    const [tempResult, setTempResult] = useState(temp);
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+        loadCough();
+    }, []);
+    useEffect(() => {
+        loadTemp();
+    }, []);
             
-    // const apiClient = create({
-    //     baseURL: 'https://snapit-api.herokuapp.com/api/'
-    // });
-    // const getCoughList = () => apiClient.get(endpointC);
-    // const getTempList = () => apiClient.get(endpointT);
+    const apiClient = create({
+        baseURL: 'https://snapit-api.herokuapp.com/api/'
+    });
+    const getCoughList = () => apiClient.get(endpointC);
+    const getTempList = () => apiClient.get(endpointT);
 
-    // const loadCough = async() => {
-    //     const response = await getCoughList();
-    //     setCoughResult(response.data);
-    //     console.log(coughResult.length);
-    // };
-    // const loadTemp = async() => {
-    //     const response = await getTempList();
-    //     setTempResult(response.data);
-    // };
+    const loadCough = async() => {
+        const response = await getCoughList();
+        setCoughResult(response.data);
+        console.log(coughResult.length);
+        setShow(true);
+    };
+    const loadTemp = async() => {
+        const response = await getTempList();
+        setTempResult(response.data);
+        setShow(true);
+    };
 
-    const coughResult = cough;
-    const tempResult = temp;
+    function loadFull(){
+        loadTemp();
+        loadCough();
+    };
+
+
+    
+    // const coughResult = cough;
+    // const tempResult = temp;
+    
     // const data = {
         
     //     labels: ["May", "June","s", "s" , "May", "June"],
@@ -109,12 +118,12 @@ function GraphScreen(props) {
     coughDate[i] = coughResult[i].date;
     coughTimes[i] = coughResult[i].coughCount;
     };
-
+    var j;
     var tempDate = [];
     var tempTimes = [];
-    for (i = 0; i < tempResult.length; i++) {
-        tempDate[i] = tempResult[i].date;
-        tempTimes[i] = tempResult[i].temp;
+    for (j = 0; j < tempResult.length; j++) {
+        tempDate[j] = tempResult[j].date;
+        tempTimes[j] = tempResult[j].temp;
         };
     console.log (tempDate);
     console.log(tempTimes);
@@ -143,58 +152,62 @@ function GraphScreen(props) {
         legend: ["Temperature Data"] // optional
     };
 
-    const chartConfig = {
-        backgroundColor: "#white",
-        backgroundGradientFrom: "#fb8c00",
-        backgroundGradientTo: "#ffa726",
-        decimalPlaces: 2, // optional, defaults to 2dp
-        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        style: {
-            borderRadius: 16
-        },
-        propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726"
-        }
-    };
+        const chartConfig = {
+            backgroundGradientFrom: "#1E2923",
+            backgroundGradientFromOpacity: 0,
+            backgroundGradientTo: "#08130D",
+            backgroundGradientToOpacity: 0.5,
+            //color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            strokeWidth: 2, // optional, default 3
+            barPercentage: 0.5,
+            useShadowColorFromDataset: false // optional
+          };
+
     return (
+        show ?
+        (<><View>
+            <Text>Cough Chart</Text>
+            <BarChart
+                data={dataC}
+                width={Dimensions.get("window").width} // from react-native
+                height={220}
+                // yAxisLabel="$"
+                // yAxisSuffix="k"
+                // yAxisInterval={1} // optional, defaults to 1
+                chartConfig={chartConfig}
+                style={{
+                marginVertical: 8,
+                borderRadius: 16
+                }}
+            />
+            <Text>Temperature Chart</Text>
+            <LineChart
+                data={dataT}
+                width={Dimensions.get("window").width} // from react-native
+                height={220}
+                // yAxisLabel="$"
+                // yAxisSuffix="k"
+                yAxisInterval={1} // optional, defaults to 1
+                chartConfig={chartConfig}
+                
+                style={{
+                marginVertical: 8,
+                borderRadius: 16
+                }}
+            />
+            <Button title="refresh" onPress={loadFull}/>
+            </View></>):
         // <View>
         //     <Image style={styles.graph} source={require("../assets/graph.jpg")}></Image>
         //     <Image style={styles.graph} source={require("../assets/graph.jpg")}></Image>
         // </View>
-        <View>
-        <Text>Cough Chart</Text>
-        <BarChart
-            data={dataC}
-            width={Dimensions.get("window").width} // from react-native
-            height={220}
-            // yAxisLabel="$"
-            // yAxisSuffix="k"
-            // yAxisInterval={1} // optional, defaults to 1
-            chartConfig={chartConfig}
-            style={{
-            marginVertical: 8,
-            borderRadius: 16
-            }}
-        />
-        <Text>Temperature Chart</Text>
-        <LineChart
-            data={dataT}
-            width={Dimensions.get("window").width} // from react-native
-            height={220}
-            // yAxisLabel="$"
-            // yAxisSuffix="k"
-            yAxisInterval={1} // optional, defaults to 1
-            chartConfig={chartConfig}
-            
-            style={{
-            marginVertical: 8,
-            borderRadius: 16
-            }}
-        />
+        <>
+        <View> 
+            <Text> Loading.....</Text>
         </View>
+        </>
     );
 }
 const styles = StyleSheet.create({

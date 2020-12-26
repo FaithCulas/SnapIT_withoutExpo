@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View , StyleSheet,Image} from 'react-native';
+import { View , StyleSheet,Image,Button} from 'react-native';
 import {create} from "apisauce";
 
 import Profile from "../components/Profile";
@@ -16,7 +16,13 @@ function ProfileScreen(props) {
         }
     ];
     const endpoint = "/1";
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState([{
+        "id": "loading...",
+        "name": "loading...",
+        "mobile": "loading...",
+        "address": "loading...",
+        "test": "negative"
+    }]);
     useEffect(() => {
         loadUser();
     }, []);
@@ -35,7 +41,9 @@ function ProfileScreen(props) {
     return (
         <Screen>
         <View>
-            <Profile id="12"name="Faith Culas" address="sample"phone="077" indicator="green"></Profile>  
+            {/* <Profile id="12"name="Faith Culas" address="sample"phone="077" indicator="green"></Profile>   */}
+            <Profile id={result[0].id} name={result[0].name} address={result[0].address} phone={result[0].mobile} indicator={(result[0].test=="positive")?"red":"green"}></Profile>
+            <Button title="reload" onPress={loadUser}/>
         </View>
         </Screen>
         

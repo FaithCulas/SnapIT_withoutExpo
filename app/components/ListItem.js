@@ -11,7 +11,6 @@ function ListItem({title,image,onPress,icon,subtitle}) {
             {image &&<Image style={styles.pic} source={image}></Image>}
                 <View style={styles.content2}>
                     <AppText style={styles.text1}>{title}</AppText>
-                    <AppText style={styles.text1}>{subtitle}</AppText>
                 </View>
         </View>
         </TouchableOpacity>
