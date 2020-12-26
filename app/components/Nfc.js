@@ -9,7 +9,7 @@ import {
   ToastAndroid,
   Platform,
   Alert,
-  Button
+  Modal
 } from 'react-native';
 import NfcManager, {
   NfcEvents,
@@ -18,11 +18,17 @@ import NfcManager, {
   NdefParser,
   Ndef,
 } from 'react-native-nfc-manager';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 import ListItem from './ListItem';
 import MyIcon from './MyIcon'
 
 class Nfc extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showAlert: false };
+  };
+  
   getDataUsingPost = (inf) => {
     //console.log(inf);
     //POST json
@@ -51,10 +57,12 @@ class Nfc extends React.Component {
     //If response is in json then in success
     .then((responseJson) => { 
       if (JSON.stringify(responseJson)==JSON.stringify({"message": "received"})){
+        this.notshow();
         alert("scanned successfully");
         console.log(responseJson);
       }
       else{
+        this.notshow();
         alert("scan unsuccessful");
         console.log(responseJson);
       }
@@ -65,8 +73,9 @@ class Nfc extends React.Component {
       console.error(error);
     });
   };
-  
+
   componentDidMount(){
+    const showalert=false
     const id =this.props.id
     NfcManager.start();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, this._onTagDiscovered);
@@ -81,7 +90,8 @@ class Nfc extends React.Component {
   }
   readData = async () => {
     try {
-      await NfcManager.registerTagEvent()
+      await NfcManager.registerTagEvent();
+      this.show();
 
     } catch (ex) {
       console.warn('ex', ex);
@@ -119,7 +129,7 @@ class Nfc extends React.Component {
     console.log('Content from read:', this.content, "id passed:", this.props.id)
     const values = {date: this.props.id[1], time: this.props.id[2], temp:this.content[0], userid: 1, isid: this.content[1]}
     this.getDataUsingPost(values);
-    Alert.alert("scanned");
+    
 
     // end here
 
@@ -135,17 +145,39 @@ class Nfc extends React.Component {
 
   test = () => {
     console.log(this.props.id);
-    const values = {date: this.props.id[1], time: this.props.id[2], temp: 20, userid: 1, isid: '5f8bdbea7119bc007641a5c4'}
+    const values = {date: this.props.id[1], time: this.props.id[2], temp: 20, userid: 1, isid: '5f8bdbea7119bc007641a5c4'};
     this.getDataUsingPost(values);
-
-
+    //alert("scanning....",);
+    this.show();
+    console.log(this.state.showAlert)
   }
+  show = () => {
+    this.setState({
+      showAlert: true
+    });
+  };
+
+  notshow=()=>{
+    this.setState({
+      showAlert: false
+    });
+  }
+
  
 render(){
+  const {showAlert} = this.state;
   return (
-    <SafeAreaView style={{padding: 20}}>
+    
+    <SafeAreaView style={{padding: 20,alignItems:"center"}}>
       <Text>NFC SCANNER</Text>
-      <ListItem onPress={this.test} icon={<MyIcon name= "scan" size={80} backColor="#f4f4f2" iconColor="black"/>}/>
+      <ListItem onPress={this.readData} icon={<MyIcon name= "scan" size={100} backColor="#f4f4f2" iconColor="black"/>}/>
+      <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={true}
+          title="READY FOR SCAN"
+          progressColor="red"
+          closeOnTouchOutside={false}
+        />
 
     </SafeAreaView>
   );

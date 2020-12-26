@@ -16,6 +16,7 @@ import {
   StatusBar,
 } from 'react-native';
 
+
 import Icon from 'react-native-vector-icons/Ionicons'
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -36,6 +37,7 @@ const App: () => React$Node = () => {
       <NavigationContainer theme={navigationTheme}>
           <AppNavigator/>
       </NavigationContainer>
+       
     </>
   );
 };

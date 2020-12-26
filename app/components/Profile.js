@@ -1,12 +1,13 @@
 import React ,{useState,useEffect}from 'react';
 import { View , StyleSheet,Text, Alert,Image} from 'react-native';
-import MyIcon from './MyIcon'
+import {PulseIndicator} from 'react-native-indicators';
 
+import MyIcon from './MyIcon'
 import AppText from './AppText';
 import Nfc from './Nfc'
 
 
-function Profile({name,address,phone,image}) {
+function Profile({name,address,phone,image,indicator}) {
     const [currentDate, setCurrentDate] = useState('');
     const [currentTime, setCurrentTime] = useState('');
 
@@ -27,6 +28,9 @@ function Profile({name,address,phone,image}) {
                 <Octicons name="graph" size={20} onPress={()=>Alert.alert("graphs")} style={{paddingRight:20}}></Octicons>
                 <AntDesign name="user" size={20} onPress={()=>Alert.alert("graphs")}></AntDesign>
             </View> */}
+            <View style={styles.indicator}>
+                <PulseIndicator color='green' />
+            </View>
             <View>
                 {<Image style={styles.pic} source={require("../assets/profile.png")}></Image>}
             </View>
@@ -55,6 +59,13 @@ function Profile({name,address,phone,image}) {
 
 const styles = StyleSheet.create({
     container:{
+        
+    },
+    indicator:{
+       justifyContent:"flex-end",
+       flexDirection:"row-reverse",
+       marginRight:"80%",
+       marginTop:"2%"
        
     },
     content1:{
@@ -82,8 +93,8 @@ const styles = StyleSheet.create({
         fontWeight:"bold",
     },
     scanbutton:{
-        marginVertical:50,
-        alignItems:"center"
+        marginVertical:40,
+        alignSelf:"center"
     },
     subtitle:{
         paddingLeft:10,
