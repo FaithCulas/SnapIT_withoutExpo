@@ -5,6 +5,15 @@ import {create} from "apisauce";
 import Profile from "../components/Profile"
 
 function ProfileScreen(props) {
+    const API = [
+        {
+            "id": 1,
+            "name": "Faith",
+            "mobile": 770825463,
+            "address": "70,madelgamuwa,gampaha",
+            "test": "negative"
+        }
+    ];
     const endpoint = "/1";
     const [result, setResult] = useState([]);
     useEffect(() => {
@@ -19,12 +28,12 @@ function ProfileScreen(props) {
     const loadUser = async() => {
         const response = await getListing();
         setResult(response.data);
-        console.log();
-    }
-
+        console.log(result);
+    };
+    //<Profile name={result[0].name} address={result[0].address} phone={result[0].mobile} indicator={result[0].test}></Profile>  
     return (
         <View>
-            <Profile name={result[0].name} address="as" phone="0775868915" indicator="positive"></Profile>  
+            <Profile name="nam" address="add" phone="pj" indicator="in"></Profile>  
         </View>
         
     );
