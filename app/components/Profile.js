@@ -29,13 +29,14 @@ function Profile({name,address,phone,image,indicator,id}) {
                 <AntDesign name="user" size={20} onPress={()=>Alert.alert("graphs")}></AntDesign>
             </View> */}
             <View style={styles.indicator}>
-                <PulseIndicator color='green' />
+                <PulseIndicator color={indicator} />
             </View>
             <View>
                 {<Image style={styles.pic} source={require("../assets/profile.png")}></Image>}
             </View>
             <View style={styles.username}>
                 <AppText style={styles.title}>{name}</AppText>
+                <AppText style={styles.title}>{id}</AppText>
             </View>
             <View style={styles.content1}>
             <View style={styles.userdetails}>
