@@ -197,7 +197,7 @@ function GraphScreen(props) {
                 borderRadius: 16
                 }}
             />
-            <Button style={{padding:20}}title="refresh" onPress={loadFull}/>
+            <Button title="refresh" onPress={loadFull}/>
             </View></>):
         // <View>
         //     <Image style={styles.graph} source={require("../assets/graph.jpg")}></Image>

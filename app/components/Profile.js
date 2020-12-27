@@ -32,7 +32,7 @@ function Profile({name,address,phone,image,indicator,id}) {
                 <PulseIndicator color={indicator} />
             </View>
             <View>
-                {<Image style={styles.pic} source={require("../assets/profile.png")}></Image>}
+                {<Image style={styles.pic} source={require("../assets/ppffff.jpg")}></Image>}
             </View>
             <View style={styles.username}>
                 <AppText style={styles.title}>{name}</AppText>
