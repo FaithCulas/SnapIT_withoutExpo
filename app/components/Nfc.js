@@ -29,6 +29,7 @@ class Nfc extends React.Component {
     this.state = { showAlert: false };
   };
   
+  
   getDataUsingPost = (inf) => {
     //console.log(inf);
     //POST json

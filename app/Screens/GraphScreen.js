@@ -168,7 +168,7 @@ function GraphScreen(props) {
     return (
         show ?
         (<><View>
-            <Text>Cough Chart</Text>
+            <Text style={{alignSelf:"center",fontWeight:"bold"}}>Cough Chart</Text>
             <BarChart
                 data={dataC}
                 width={Dimensions.get("window").width} // from react-native
@@ -182,7 +182,7 @@ function GraphScreen(props) {
                 borderRadius: 16
                 }}
             />
-            <Text>Temperature Chart</Text>
+            <Text style={{alignSelf:"center",fontWeight:"bold"}}>Temperature Chart</Text>
             <LineChart
                 data={dataT}
                 width={Dimensions.get("window").width} // from react-native
@@ -197,7 +197,7 @@ function GraphScreen(props) {
                 borderRadius: 16
                 }}
             />
-            <Button title="refresh" onPress={loadFull}/>
+            <Button style={{padding:20}}title="refresh" onPress={loadFull}/>
             </View></>):
         // <View>
         //     <Image style={styles.graph} source={require("../assets/graph.jpg")}></Image>
